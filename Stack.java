@@ -16,11 +16,26 @@ public class Stack {
 
 	public Stack() {
 		super();
-		// TODO Auto-generated constructor stub
 		this.size = 10;
 		this.stack = new Object[size];
 		counter = 0;
 		this.autoResize = true;
+	}
+	
+	public Stack(int size, Boolean autoResize) {
+		super();
+		this.size = size;
+		this.stack = new Object[size];
+		counter = 0;
+		this.autoResize = autoResize;
+	}
+	
+	public Stack(Boolean autoResize) {
+		super();
+		this.size = 10;
+		this.stack = new Object[size];
+		counter = 0;
+		this.autoResize = autoResize;
 	}
 	
 	public void push(Object obj) throws StackOwerflowException {
