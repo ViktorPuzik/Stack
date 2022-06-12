@@ -4,19 +4,23 @@ public class Stack {
 	private int size;
 	private Object[] stack;
 	private int counter;
+	private boolean autoResize;
 
 	public Stack(int size) {
 		super();
 		this.size = size;
 		this.stack = new Object[size];
 		counter = 0;
+		this.autoResize = false;
 	}
 
 	public Stack() {
 		super();
 		// TODO Auto-generated constructor stub
-		this.stack = new Object[10];
+		this.size = 10;
+		this.stack = new Object[size];
 		counter = 0;
+		this.autoResize = true;
 	}
 	
 	public void push(Object obj) throws StackOwerflowException {
@@ -29,7 +33,13 @@ public class Stack {
 					stack[temp] = stack[temp-1];
 				}
 				stack[0] = obj;
-			} else {throw new StackOwerflowException("Stack Owerflow");}
+			} else {
+				if (autoResize) {
+					stackResize(obj);
+				}else {
+					throw new StackOwerflowException("Stack Owerflow");
+				}
+			}
 		}
 //		readStack();
 		counter++;
@@ -54,7 +64,6 @@ public class Stack {
 			}
 //			readStack();
 			return temp;
-		
 		}
 	}
 	public void readStack () {
@@ -63,5 +72,16 @@ public class Stack {
 			System.out.println(stack[i]);
 		}
 		System.out.println("-------------------");
+	}
+
+	private void stackResize(Object obj) {
+		size = size*2;
+		Object[] st = new Object[size];
+		st[0] = obj;
+		for (int i = 0; i < counter; i++) {
+			st[i+1] = stack[i];
+		}
+		stack = st;
+		st = null;
 	}
 }
